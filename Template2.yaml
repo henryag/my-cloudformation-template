@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 
+  "My first EC2 instance from yaml file"
+Parameters:
+  InstanceType:
+    Description: "Webserver EC2 instance type"
+    Type: "String" 
+    Default: t2.micro
+    AllowedValues:
+      - "t2.micro"
+      - "t3.small"
+    ConstraintDescription: must be a valid EC2 type
+      
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: "ami-06a0cd9728546d178" 
+      KeyName: "myKey"
+      InstanceType: !Ref InstanceType
+      SubnetId: "subnet-0a47cfcb41e84b4bb"
+      SecurityGroupIds: 
+        - "sg-0a932f9eed14f14b8"
+      Tags: 
+        - Key: "Name"
+          Value: "myEC2Instance"
+        - Key: "Launched By"
+          Value: "CloudFormation"
+      
